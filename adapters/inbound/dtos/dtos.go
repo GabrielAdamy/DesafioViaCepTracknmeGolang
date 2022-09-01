@@ -50,8 +50,8 @@ func (c *EmployeeDTO) ParseToDomain() *domain.Employee {
 	}
 }
 
-func NewContractDTO(dom *domain.Employee) *EmployeeDTO {
-	contract := &EmployeeDTO{
+func NewEmployeeDTO(dom *domain.Employee) *EmployeeDTO {
+	employee := &EmployeeDTO{
 		ID:       dom.ID,
 		Name:     dom.Name,
 		Age:      dom.Age,
@@ -62,5 +62,5 @@ func NewContractDTO(dom *domain.Employee) *EmployeeDTO {
 		City:     dom.City,
 		State:    dom.State,
 	}
-	return contract
+	return employee
 }

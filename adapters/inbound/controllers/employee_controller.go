@@ -47,7 +47,7 @@ func (controller *EmployeeController) create() gin.HandlerFunc {
 			})
 			return
 		}
-		response := dtos.NewContractDTO(employee)
+		response := dtos.NewEmployeeDTO(employee)
 		c.JSON(http.StatusCreated, response)
 	}
 }
@@ -179,7 +179,7 @@ func (controller *EmployeeController) update() gin.HandlerFunc {
 			})
 			return
 		}
-		response := dtos.NewContractDTO(employee)
+		response := dtos.NewEmployeeDTO(employee)
 		c.JSON(http.StatusCreated, response)
 	}
 }
@@ -209,11 +209,11 @@ func (controller *EmployeeController) delete() gin.HandlerFunc {
 func (controller *EmployeeController) createPage(domains []*domain.Employee, count int64, page int64, limit int64) *dtos.EmployeePage {
 	resources := make([]*dtos.EmployeeDTO, len(domains))
 	for i, v := range domains {
-		resources[i] = dtos.NewContractDTO(v)
+		resources[i] = dtos.NewEmployeeDTO(v)
 	}
 
-	pageContracts := dtos.NewContractPage(resources, count, page, limit)
-	return pageContracts
+	pageEmployee := dtos.NewEmployeePage(resources, count, page, limit)
+	return pageEmployee
 }
 
 func (controller *EmployeeController) getPageRequest(parameters map[string]string) (int64, int64) {

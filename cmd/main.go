@@ -9,14 +9,6 @@ import (
 	"example.com/m/v2/application/services"
 )
 
-func init() {
-	// local, err := time.LoadLocation("America/Sao_Paulo")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// time.Local = local
-}
-
 func main() {
 
 	postgresConfig := configurations.NewPostgresConfiguration()
@@ -24,13 +16,6 @@ func main() {
 
 	client := rest.NewViaCepClient()
 	employeeService := services.NewEmployeeServiceImpl(repository, client)
-
-	//storageClient := configurations.NewStorageClient()
-
-	// contractService := services.NewContractServiceImpl(repository)
-
-	// pdfGenerateService := services.NewPdfGeneratorServiceImpl(storageClient)
-	// generateContractPdfService := services.NewGenerateContractPdfServiceImpl(pdfGenerateService, repository, brandClient, productClient, purchaseClient)
 
 	go httpServer(client, employeeService)
 	flag := make(chan bool)

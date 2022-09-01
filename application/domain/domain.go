@@ -7,14 +7,14 @@ type ViaCep struct {
 	City     string `json:"localidade"`
 	Uf       string `json:"uf"`
 	Ibge     string `json:"ibge"`
-	Ddd      string  `json:"ddd"`
+	Ddd      string `json:"ddd"`
 }
 
 type Employee struct {
 	ID       int64  `json:"id"`
 	Name     string `json:"name"`
 	Age      int64  `json:"age"`
-	Cep      string  `json:"cep"`
+	Cep      string `json:"cep"`
 	Sex      string `json:"sex"`
 	Address  string `json:"address"`
 	District string `json:"district"`

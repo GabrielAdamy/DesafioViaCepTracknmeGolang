@@ -22,35 +22,35 @@
 </h3>
 <h5 align="left">  
 POST <br>
-http://localhost:8080/employee/create
+http://localhost:8080/api/employee/create
 
 Body: { <br>"name": String, (OBRIGATÓRIO) <br>"age": int,(OBRIGATÓRIO) <br>"sex": String, (OBRIGATÓRIO) <br>"cep": String (OBRIGATÓRIO)<br> }
 </h5>
 <h5 align="left">
 GET <br>
-http://localhost:8080/employee
+http://localhost:8080/api/employee
 </h5>
 <h5 align="left">
 GET <br>
-http://localhost:8080/employee/cep/{cep String}
+http://localhost:8080/api/employee/cep/{cep String}
 </h5>
 <h5 align="left">
 GET <br>
-http://localhost:8080/viacep/cep/{cep String}
+http://localhost:8080/api/viacep/cep/{cep String}
 </h5>
 <h5 align="left">
 DELETE <br>
-http://localhost:8080/employee/{id}
+http://localhost:8080/api/employee/{id}
 </h5>
 <h5 align="left">
 PUT <br>
-http://localhost:8080/employee/update/{id}
+http://localhost:8080/api/employee/update/{id}
 <br>
 Body: { <br> "name": String, (OBRIGATÓRIO) <br> "age": int, (OBRIGATÓRIO) <br> "sex": String, <br> "cep": String, (OBRIGATÓRIO) <br> "address": String, <br> "district": String, <br> "city": String, <br>"state": String  <br>}
 </h5>
 <h5 align="left">
 PATCH <br>
-http://localhost:8080/employee/{id}
+http://localhost:8080/api/employee/{id}
 <br>
 Body: { <br>"name": String, (OBRIGATÓRIO) <br>"age": int, (OBRIGATÓRIO) <br>"sex": String, <br>"cep": String (OBRIGATÓRIO)<br> }
 </h5>

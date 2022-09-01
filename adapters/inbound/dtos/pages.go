@@ -30,7 +30,7 @@ func NewEmployeePageWithResource(resources []*EmployeeDTO) *EmployeePage {
 	}
 }
 
-func NewContractPage(resources []*EmployeeDTO, count int64, page int64, limit int64) *EmployeePage {
+func NewEmployeePage(resources []*EmployeeDTO, count int64, page int64, limit int64) *EmployeePage {
 	return &EmployeePage{
 		Content:  resources,
 		PageBody: NewPageBody(len(resources), page, limit, count),
