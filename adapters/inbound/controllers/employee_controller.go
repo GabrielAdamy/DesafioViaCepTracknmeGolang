@@ -21,6 +21,8 @@ func NewEmployeeController(apiGroup *gin.RouterGroup, service ports.EmployeeServ
 	apiGroup.POST("/employee", controller.create())
 	apiGroup.GET("/employee/:id", controller.findOne())
 	apiGroup.GET("/employee", controller.findAll())
+	apiGroup.GET("/employee/cep/:cep", controller.findByCep())
+	apiGroup.PUT("/employee", controller.update())
 	apiGroup.DELETE("/employee/:id", controller.delete())
 	apiGroup.PATCH("/employee/:id", controller.UpdatePatch())
 
@@ -37,15 +39,15 @@ func (controller *EmployeeController) create() gin.HandlerFunc {
 			})
 			return
 		}
-		contract := employeeDto.ParseToDomain()
-		if err := controller.service.Save(contract); err != nil {
+		employee := employeeDto.ParseToDomain()
+		if err := controller.service.Save(employee); err != nil {
 			c.JSON(http.StatusBadRequest, dtos.Message{
 				Message: err.Error(),
 				Code:    http.StatusBadRequest,
 			})
 			return
 		}
-		response := dtos.NewContractDTO(contract)
+		response := dtos.NewContractDTO(employee)
 		c.JSON(http.StatusCreated, response)
 	}
 }
@@ -100,6 +102,32 @@ func (controller *EmployeeController) findAll() gin.HandlerFunc {
 	}
 }
 
+func (controller *EmployeeController) findByCep() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		cep := c.Param("cep")
+		var parameters = make(map[string]string)
+		parameters["cep"] = cep
+		if err := c.ShouldBindWith(&parameters, binding.Query); err != nil {
+			c.JSON(http.StatusBadRequest, dtos.Message{
+				Message: err.Error(),
+				Code:    http.StatusBadRequest,
+			})
+			return
+		}
+		rows, limit := controller.getPageRequest(parameters)
+		ceps, count, err := controller.service.FindByCep(cep, rows, limit)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, dtos.Message{
+				Message: err.Error(),
+				Code:    http.StatusBadRequest,
+			})
+			return
+		}
+		pageResources := controller.createPage(ceps, count, rows, limit)
+		c.JSON(http.StatusOK, pageResources)
+	}
+}
+
 func (controller *EmployeeController) UpdatePatch() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id, err := strconv.ParseInt(c.Param("id"), 10, 64)
@@ -113,7 +141,7 @@ func (controller *EmployeeController) UpdatePatch() gin.HandlerFunc {
 		json, err := ioutil.ReadAll(c.Request.Body)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, dtos.Message{
-				Message: "Não foi possivel converter o json patch. " + err.Error(),
+				Message: err.Error(),
 				Code:    http.StatusBadRequest,
 			})
 			return
@@ -129,6 +157,30 @@ func (controller *EmployeeController) UpdatePatch() gin.HandlerFunc {
 		}
 
 		c.JSON(http.StatusOK, &employee)
+	}
+}
+
+func (controller *EmployeeController) update() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var employeeDto dtos.EmployeeDTO
+
+		if err := c.ShouldBindJSON(&employeeDto); err != nil {
+			c.JSON(http.StatusBadRequest, dtos.Message{
+				Message: err.Error(),
+				Code:    http.StatusBadRequest,
+			})
+			return
+		}
+		employee := employeeDto.ParseToDomain()
+		if err := controller.service.Save(employee); err != nil {
+			c.JSON(http.StatusBadRequest, dtos.Message{
+				Message: err.Error(),
+				Code:    http.StatusBadRequest,
+			})
+			return
+		}
+		response := dtos.NewContractDTO(employee)
+		c.JSON(http.StatusCreated, response)
 	}
 }
 

@@ -17,7 +17,6 @@ func NewEmployeeRepositoryImpl(db *configurations.PostgresConfiguration) *Employ
 	return &EmployeeRepositoryImpl{db: db}
 }
 
-// retorna o slice de registros, count e erro
 func (rep *EmployeeRepositoryImpl) FindAll(page int64, limit int64, parameters map[string]string) ([]*domain.Employee, int64, error) {
 	query := "1=1"
 	var values []interface{}
@@ -69,6 +68,21 @@ func (rep *EmployeeRepositoryImpl) FindOne(id int64) (*domain.Employee, error) {
 	return &entity, nil
 }
 
+func (rep *EmployeeRepositoryImpl) FindByCep(cep string, page, limit int64) ([]*domain.Employee, int64, error) {
+	if page <= 0 {
+		page = 1
+	}
+
+	var entities []*domain.Employee
+	var totalRows int64
+	tx := rep.db.DB.Where("cep = ?", cep).Order("id desc").Limit(int(limit)).Offset(int((page - 1) * limit)).Find(&entities).Count(&totalRows)
+	if tx.Error != nil {
+		return nil, 0, tx.Error
+	}
+
+	return entities, totalRows, nil
+}
+
 func (rep *EmployeeRepositoryImpl) Save(employee *domain.Employee) error {
 	tx := rep.db.DB.Create(employee)
 	return tx.Error
@@ -85,5 +99,3 @@ func (rep *EmployeeRepositoryImpl) Update(employee *domain.Employee) error {
 	tx := rep.db.DB.Save(employee)
 	return tx.Error
 }
-
-

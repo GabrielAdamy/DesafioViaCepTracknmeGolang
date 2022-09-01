@@ -27,21 +27,12 @@ func (c *EmployeeServiceImpl) Save(dom *domain.Employee) error {
 	return c.repository.Save(dom)
 }
 
-func (c *EmployeeServiceImpl) UpdateCep(cep string, dom *domain.Employee) error {
-	address, err := c.client.FindAddressByCep(cep)
-	if err != nil {
-		return err
-	}
-	dom.Address = address.Address
-	dom.District = address.District
-	dom.Cep = cep
-	dom.State = address.Uf
-	dom.City = address.City
-	return nil
-}
-
 func (c *EmployeeServiceImpl) FindOne(id int64) (*domain.Employee, error) {
 	return c.repository.FindOne(id)
+}
+
+func (c *EmployeeServiceImpl) FindByCep(cep string, page, limit int64) ([]*domain.Employee, int64, error) {
+	return c.repository.FindByCep(cep, page, limit)
 }
 
 func (c *EmployeeServiceImpl) FindAll(page, limit int64, parameters map[string]string) ([]*domain.Employee, int64, error) {
@@ -73,10 +64,24 @@ func (c *EmployeeServiceImpl) UpdatePatch(id int64, patch []byte) error {
 	}
 
 	json.Unmarshal(modified, &employee)
+	c.UpdateCep(employee.Cep, employee)
 	err = c.repository.Update(employee)
 	if err != nil {
 		return err
 	}
 
+	return nil
+}
+
+func (c *EmployeeServiceImpl) UpdateCep(cep string, dom *domain.Employee) error {
+	address, err := c.client.FindAddressByCep(cep)
+	if err != nil {
+		return err
+	}
+	dom.Address = address.Address
+	dom.District = address.District
+	dom.Cep = cep
+	dom.State = address.Uf
+	dom.City = address.City
 	return nil
 }
