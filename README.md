@@ -4,10 +4,12 @@
     <a href="https://github.com/GabrielAdamy/DesafioViaCepTracknmeGolang"><img src="https://media-exp1.licdn.com/dms/image/C4E0BAQFrhiNubVpL_A/company-logo_200_200/0/1635518084901?e=2147483647&v=beta&t=YqhegBy3yBJsH4_0Q-odEiInleCGhYlgDZrg21tYWis"</a>
  <br> Desafio crud em golang
 </h1>
+  
+  <p>O projeto tem como finalidade testar o conhecimento e evolução do desenvolvedor. No projeto foi utilizado a conexão com o banco de dados Postgres, utilizando os métodos básicos de um crud.</p>
 
   <h2 aling="left">Conexão com o Postgres</h2>
   <br>
-  <p>
+  <p>    
   "POSTGRES_HOST": "localhost", <br>
   "POSTGRES_PORT": "5432", <br>
   "POSTGRES_USER": "postgres", <br>
@@ -55,9 +57,10 @@ Body: { <br>"name": String, (OBRIGATÓRIO) <br>"age": int, (OBRIGATÓRIO) <br>"s
 </p>
 
 <h6 align="center">
-
-  👤 **Gabriel Adamy**
-
-Github:   [@GabrielAdamy](https://github.com/GabrielAdamy)
-LinkedIn: [@gabriel-adamy](https://www.linkedin.com/in/gabriel-adamy) 
+  👤 ***Gabriel Adamy***
+</h6>
+<h6 align="center">
+GitHub: https://github.com/GabrielAdamy
+  
+LinkedIn: https://www.linkedin.com/in/gabriel-adamy
 </h6>
