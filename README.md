@@ -2,11 +2,19 @@
 <h1 align="center">
   <br>
     <a href="https://github.com/GabrielAdamy/DesafioViaCepTracknmeGolang"><img src="https://media-exp1.licdn.com/dms/image/C4E0BAQFrhiNubVpL_A/company-logo_200_200/0/1635518084901?e=2147483647&v=beta&t=YqhegBy3yBJsH4_0Q-odEiInleCGhYlgDZrg21tYWis"</a>
-    
  <br> Desafio crud em golang
-  
 </h1>
 
+  <h2 aling="left">Conexão com o Postgres</h2>
+  <br>
+  <p>
+  "POSTGRES_HOST": "localhost", <br>
+  "POSTGRES_PORT": "5432", <br>
+  "POSTGRES_USER": "postgres", <br>
+  "POSTGRES_PASSWORD": "postgres", <br>
+  "POSTGRES_DBNAME": "tracknme" <br>
+  </p>
+  
 <h3 align="left">  
    ENDPOINTS:
 </h3>
